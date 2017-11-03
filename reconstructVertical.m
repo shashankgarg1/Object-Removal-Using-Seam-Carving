@@ -34,6 +34,14 @@ function [Ix,E,coords]=reconstructVertical(I,Mx, Tbx)
         y=coords(i,2);
 		assert(x==i);
 		X=I(i,:,:);
+        p=0;
+        q=0;
+        if(x>1)
+            p=I(x-1,y,:);
+        end
+        if(x<nr)
+            q=I(x+1,y,:);
+        end
 		if(y==1)
 			z=[X(1,2,:),X];
 		elseif(y==nc)

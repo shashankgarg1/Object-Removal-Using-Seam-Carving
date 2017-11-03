@@ -35,12 +35,21 @@ function [Iy,E,coords]=reconstructHorizontal(I,My,Tby)
 		X=I(:,j,:);
         X=permute(X,[2,1,3]);
         %j,x
+        p=0;
+        q=0;
+        if (y>1)
+            p=I(x,y-1,:);
+        end
+        if(y<nc)
+            q=I(x,y+1,:);
+        end
 		if(x==1)
 			z=[X(1,2,:),X];
 		elseif(x==nr)
 			z=[X,X(1,nr-1,:)];
 		else
-			z=[X(1,1:x-1,:),(X(1,x-1,:)+X(1,x+1,:))/2,X(1,x:end,:)];
+%			z=[X(1,1:x-1,:),mean([X(1,x-1,:)+X(1,x+1,:)+p+q],2),X(1,x:end,:)];
+            z=[X(1,1:x-1,:),(X(1,x-1,:)+X(1,x+1,:))/2,X(1,x:end,:)];
 		end
 		Iy(:,j,:)=permute(z,[2,1,3]);
 	end

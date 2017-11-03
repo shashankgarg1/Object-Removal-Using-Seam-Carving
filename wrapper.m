@@ -1,7 +1,7 @@
 clear
 clc
-I=imread('4.jpg');
-I=imresize(I,0.8);
+I=imread('3.jpg');
+%I=imresize(I,0.8);
 mask=maskImage(I);
 q=double(mask);
 ind=find(q==1);
@@ -11,6 +11,13 @@ s=size(q);
 q=q.*(-1000);
 %q(isnan(q))=1;
 q(q==0)=1;
+
+mask=maskImage(I);
+f=double(mask);
+f=f.*(1000);
+f(f==0)=1;
+
+q=q.*f;
 %t=repmat(q,1,1,3);
 %I=im2double(I);
 %w=I.*t;
@@ -25,4 +32,4 @@ t=ones(size(Ic,1),size(Ic,2));
 [Ic1, T1] = insertion(Ic, 0, nc,t);
 m=getImages(I,T,q,Ic,T1,t);
 video_creator
-imwrite(Ic1,'4ov.jpg');
+imwrite(Ic1,'3oh_test.jpg');
