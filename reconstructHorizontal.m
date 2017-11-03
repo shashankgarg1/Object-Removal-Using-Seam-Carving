@@ -4,7 +4,7 @@ function [Iy,E,coords]=reconstructHorizontal(I,My,Tby)
     %I=im2double(I);
     
     [E,index]=min(My(:,nc));
-    index
+    %index
     coords=[];
     for j=nc:-1:1
         coords=[coords;index,j];

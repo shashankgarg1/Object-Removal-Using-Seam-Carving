@@ -5,7 +5,7 @@ function [Ix,E,coords]=reconstructVertical(I,Mx, Tbx)
     %I=im2double(I);
     
     [E,index]=min(Mx(nr,:));
-    index
+    %index
     coords=[];
     for i=nr:-1:1
         coords=[coords;i,index];

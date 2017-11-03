@@ -1,7 +1,7 @@
 clear
 clc
 I=imread('4.jpg');
-%I=imresize(I,0.5);
+I=imresize(I,0.8);
 mask=maskImage(I);
 q=double(mask);
 ind=find(q==1);
