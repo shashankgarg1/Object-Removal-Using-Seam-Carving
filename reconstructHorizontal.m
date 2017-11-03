@@ -1,31 +1,7 @@
-function [Iy,E,coords]=reconstructHorizontal(I,My,Tby)
-
-    [nr,nc]=size(My);
-    %I=im2double(I);
-    
-    [E,index]=min(My(:,nc));
-    %index
-    coords=[];
-    for j=nc:-1:1
-        coords=[coords;index,j];
-        index=index+Tby(index,j);
-    end
-    coords=flip(coords,1);
-    Iy=zeros(nr+1,nc,3);
-    
-%     for j=1:nc
-%         for k=1:3
-%             x=I(:,j,k);
-% %            x=[x;0];
-%             x(x==-1)=[];
-%             Iy(:,j,k)=x;
-%         end
-%     end
- 	no_of_coords=size(coords,1);
-% 	[nr,nc,~]=size(I);
-%	Iy=zeros(nr+1,nc,3);
-    
-    
+function [im]=reconstructHorizontal(I,coords)
+	no_of_coords=size(coords,1);
+	[nr,nc,~]=size(I);
+	im=zeros(nr+1,nc,3);
 	assert(no_of_coords==nc);
 	for j=1:no_of_coords
 %		[x,y]=coords(j,:);
@@ -35,22 +11,13 @@ function [Iy,E,coords]=reconstructHorizontal(I,My,Tby)
 		X=I(:,j,:);
         X=permute(X,[2,1,3]);
         %j,x
-        p=0;
-        q=0;
-        if (y>1)
-            p=I(x,y-1,:);
-        end
-        if(y<nc)
-            q=I(x,y+1,:);
-        end
 		if(x==1)
-			z=[X(1,2,:),X];
-		elseif(x==nr)
-			z=[X,X(1,nr-1,:)];
+			z=[X(1,1,:)/2,X];
+		elseif(x==nr+1)
+			z=[X,X(1,nr,:)/2];
 		else
-%			z=[X(1,1:x-1,:),mean([X(1,x-1,:)+X(1,x+1,:)+p+q],2),X(1,x:end,:)];
-            z=[X(1,1:x-1,:),(X(1,x-1,:)+X(1,x+1,:))/2,X(1,x:end,:)];
+			z=[X(1,1:x-1,:),(X(1,x-1,:)+X(1,x,:))/2,X(1,x:end,:)];
 		end
-		Iy(:,j,:)=permute(z,[2,1,3]);
+		im(:,j,:)=permute(z,[2,1,3]);
 	end
 end

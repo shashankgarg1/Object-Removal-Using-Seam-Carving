@@ -81,6 +81,6 @@ function [Ic, T] = carv(I, nr, nc,mask)
     end
     
     %Ic=im;
-    Ic=im2uint8(im{nr+1,nc+1});
+    Ic=im{nr+1,nc+1};
     toc
 end
