@@ -1,6 +1,6 @@
 clear
 clc
-I=imread('banner_button_4_lassing.jpg');
+I=imread('1.jpg');
 %I=imresize(I,0.5);
 mask=maskImage(I);
 q=double(mask);
@@ -15,9 +15,14 @@ q(q==0)=1;
 %I=im2double(I);
 %w=I.*t;
 %w=im2uint8(w);
-[Ic,T]=carv(I,floor((max(R)-min(R)+1)/2),floor((max(C)-min(C)+1)/2),q);
+nr=(max(R)-min(R)+1);
+nc=(max(C)-min(C)+1);
+[Ic,T]=carv(I,0,nc,q);
 %[Ic,T]=carv(I,0,max(C)-min(C)+1,q);
-T1=T;
+%T1=T;
 %video_creator2
-m=seamInsertion(I,T,q);
+t=ones(size(Ic,1),size(Ic,2));
+[Ic1, T1] = insertion(Ic, 0, nc,t);
+m=getImages(I,T,q,Ic,T1,t);
 video_creator
+imwrite(Ic1,'1o.jpg');
