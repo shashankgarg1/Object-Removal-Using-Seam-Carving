@@ -1,6 +1,6 @@
 clear
 clc
-I=imread('1.jpg');
+I=imread('4.jpg');
 %I=imresize(I,0.5);
 mask=maskImage(I);
 q=double(mask);
@@ -25,4 +25,4 @@ t=ones(size(Ic,1),size(Ic,2));
 [Ic1, T1] = insertion(Ic, 0, nc,t);
 m=getImages(I,T,q,Ic,T1,t);
 video_creator
-imwrite(Ic1,'1o.jpg');
+imwrite(Ic1,'4ov.jpg');
